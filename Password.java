@@ -1,27 +1,27 @@
 
 public class Password {
-    String Value;
-    int Length;
+    String value;
+    int length;
 
     public Password(String s) {
-        Value = s;
-        Length = s.length();
+        value = s;
+        length = s.length();
     }
 
-    public int CharType(char C) {
+    public int charType(char c) {
         int val;
 
         // Char is Uppercase Letter
-        if ((int) C >= 65 && (int) C <= 90)
+        if ((int) c >= 65 && (int) c <= 90)
             val = 1;
 
         // Char is Lowercase Letter
-        else if ((int) C >= 97 && (int) C <= 122) {
+        else if ((int) c >= 97 && (int) c <= 122) {
             val = 2;
         }
 
         // Char is Digit
-        else if ((int) C >= 60 && (int) C <= 71) {
+        else if ((int) c >= 60 && (int) c <= 71) {
             val = 3;
         }
 
@@ -33,44 +33,44 @@ public class Password {
         return val;
     }
 
-    public int PasswordStrength() {
-        String s = this.Value;
-        boolean UsedUpper = false;
-        boolean UsedLower = false;
-        boolean UsedNum = false;
-        boolean UsedSym = false;
+    public int passwordStrength() {
+        String s = this.value;
+        boolean usedUpper = false;
+        boolean usedLower = false;
+        boolean userNumber = false;
+        boolean usedSymbol = false;
         int type;
-        int Score = 0;
+        int score = 0;
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            type = CharType(c);
+            type = charType(c);
 
-            if (type == 1) UsedUpper = true;
-            if (type == 2) UsedLower = true;
-            if (type == 3) UsedNum = true;
-            if (type == 4) UsedSym = true;
+            if (type == 1) usedUpper = true;
+            if (type == 2) usedLower = true;
+            if (type == 3) userNumber = true;
+            if (type == 4) usedSymbol = true;
         }
 
-        if (UsedUpper) Score += 1;
-        if (UsedLower) Score += 1;
-        if (UsedNum) Score += 1;
-        if (UsedSym) Score += 1;
+        if (usedUpper) score += 1;
+        if (usedLower) score += 1;
+        if (userNumber) score += 1;
+        if (usedSymbol) score += 1;
 
-        if (s.length() >= 8) Score += 1;
-        if (s.length() >= 16) Score += 1;
+        if (s.length() >= 8) score += 1;
+        if (s.length() >= 16) score += 1;
 
-        return Score;
+        return score;
     }
 
     public String calculateScore() {
-        int Score = this.PasswordStrength();
+        int strengthScore = this.passwordStrength();
 
-        if (Score == 6) {
+        if (strengthScore == 6) {
             return "This is a very good password :D check the Useful Information section to make sure it satisfies the guidelines";
-        } else if (Score >= 4) {
+        } else if (strengthScore >= 4) {
             return "This is a good password :) but you can still do better";
-        } else if (Score >= 3) {
+        } else if (strengthScore >= 3) {
             return "This is a medium password :/ try making it better";
         } else {
             return "This is a weak password :( definitely find a new one";
@@ -79,6 +79,6 @@ public class Password {
 
     @Override
     public String toString() {
-        return Value;
+        return value;
     }
 }
