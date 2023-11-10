@@ -1,5 +1,6 @@
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Generator {
     Alphabet alphabet;
@@ -78,78 +79,46 @@ public class Generator {
     }
 
     private void requestPassword() {
-        boolean IncludeUpper = false;
-        boolean IncludeLower = false;
-        boolean IncludeNum = false;
-        boolean IncludeSym = false;
+        LinkedHashMap<String, Boolean> passwordOptions = new LinkedHashMap<>() {{
+            put("Lowercase letters \"abcd...\"", false);
+            put("Uppercase letters \"ABCD...\"", false);
+            put("Numbers \"1234...\"", false);
+            put("Symbols \"!@#$...\"", false);
+        }};
 
-        boolean correctParams;
+        System.out.println("\nHello, welcome to the Password Generator :) Answer the following questions by Yes or No\n");
 
-        System.out.println();
-        System.out.println("Hello, welcome to the Password Generator :) answer"
-                + " the following questions by Yes or No \n");
-
-        do {
+        for (Map.Entry<String, Boolean> entry : passwordOptions.entrySet()) {
             String input;
-            correctParams = false;
-
             do {
-                System.out.println("Do you want Lowercase letters \"abcd...\" to be used? ");
+                System.out.println("Do you want " + entry.getKey() + " to be used? ");
                 input = keyboard.next();
                 PasswordRequestError(input);
             } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
+            entry.setValue(isInclude(input));
+        }
 
-            if (isInclude(input)) IncludeLower = true;
-
-            do {
-                System.out.println("Do you want Uppercase letters \"ABCD...\" to be used? ");
-                input = keyboard.next();
-                PasswordRequestError(input);
-            } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
-
-            if (isInclude(input)) IncludeUpper = true;
-
-            do {
-            System.out.println("Do you want Numbers \"1234...\" to be used? ");
-            input = keyboard.next();
-            PasswordRequestError(input);
-            } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
-
-            if (isInclude(input)) IncludeNum = true;
-
-            do {
-            System.out.println("Do you want Symbols \"!@#$...\" to be used? ");
-            input = keyboard.next();
-            PasswordRequestError(input);
-            } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
-
-            if (isInclude(input)) IncludeSym = true;
-
-            //No Pool Selected
-            if (!IncludeUpper && !IncludeLower && !IncludeNum && !IncludeSym) {
-                System.out.println("You have selected no characters to generate your " +
-                        "password, at least one of your answers should be Yes\n");
-                correctParams = true;
-            }
-
-        } while (correctParams);
+        if (passwordOptions.values().stream().noneMatch(Boolean::booleanValue)) {
+            System.out.println("You have selected no characters to generate your password. At least one of your answers should be Yes\n");
+            return;
+        }
 
         System.out.println("Great! Now enter the length of the password");
         int length = keyboard.nextInt();
 
-        final Generator generator = new Generator(IncludeUpper, IncludeLower, IncludeNum, IncludeSym);
+        final Generator generator = new Generator(
+                passwordOptions.get("Uppercase letters \"ABCD...\""),
+                passwordOptions.get("Lowercase letters \"abcd...\""),
+                passwordOptions.get("Numbers \"1234...\""),
+                passwordOptions.get("Symbols \"!@#$...\"")
+        );
         final Password password = generator.GeneratePassword(length);
 
         System.err.println("Your generated password -> " + password);
     }
 
-    private boolean isInclude(String Input) {
-        if (Input.equalsIgnoreCase("yes")) {
-            return true;
-        } 
-        else {
-            return false;
-        }
+    private boolean isInclude(String input) {
+        return input.equalsIgnoreCase("yes");
     }
 
     private void PasswordRequestError(String i) {
