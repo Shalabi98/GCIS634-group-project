@@ -1,11 +1,19 @@
 
 public class Password {
-    String value;
-    int length;
+    private final String value;
+    private final int length;
 
     public Password(String s) {
         value = s;
         length = s.length();
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public int charType(char c) {
