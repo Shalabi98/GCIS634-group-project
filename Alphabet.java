@@ -2,6 +2,7 @@
 
 
 public class Alphabet {
+	//Todo: config file 
 	
 	public static final String UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
