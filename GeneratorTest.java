@@ -1,9 +1,8 @@
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-
 class GeneratorTest {
-	
+
 	private final Password password= new Password("Secret");
 	private final Alphabet firstAlphabet = new Alphabet(true,false,false,false);
 	private final Alphabet secondAlphabet = new Alphabet(false,true,true,true);
@@ -17,17 +16,17 @@ class GeneratorTest {
 
 	@Test
 	void test2() {
-		assertEquals(firstAlphabet.getAlphabet(), Alphabet.UPPERCASE_LETTERS);
+		assertEquals(firstAlphabet.getAlphabet(), PasswordOptions.UPPERCASE_LETTERS);
 	}
 
 	@Test
 	void test3() {
-		assertEquals(secondAlphabet.getAlphabet(), Alphabet.LOWERCASE_LETTERS + Alphabet.NUMBERS + Alphabet.SYMBOLS);
+		assertEquals(secondAlphabet.getAlphabet(), PasswordOptions.LOWERCASE_LETTERS + PasswordOptions.NUMBERS + PasswordOptions.SYMBOLS);
 	}
 	
 	@Test
 	void test4() {
-		assertEquals(generator.alphabet.getAlphabet(), Alphabet.UPPERCASE_LETTERS);
+		assertEquals(generator.alphabet.getAlphabet(), PasswordOptions.UPPERCASE_LETTERS);
 	}
 	
 	@Test
