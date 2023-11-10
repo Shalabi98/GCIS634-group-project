@@ -112,7 +112,7 @@ public class Generator {
                 passwordOptions.get("Numbers \"1234...\""),
                 passwordOptions.get("Symbols \"!@#$...\"")
         );
-        final Password password = generator.GeneratePassword(length);
+        final Password password = generator.generatePassword(length);
 
         System.err.println("Your generated password -> " + password);
     }
