@@ -86,7 +86,7 @@ public class Generator {
             put("Symbols \"!@#$...\"", false);
         }};
 
-        System.out.println("\nHello, welcome to the Password Generator :) Answer the following questions by Yes or No\n");
+        System.out.println("\nHello, welcome to the Password Generator :) Answer the following questions by y or n\n");
 
         for (Map.Entry<String, Boolean> entry : passwordOptions.entrySet()) {
             String input;
@@ -94,12 +94,12 @@ public class Generator {
                 System.out.println("Do you want " + entry.getKey() + " to be used? ");
                 input = keyboard.next();
                 passwordRequestError(input);
-            } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
+            } while (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n"));
             entry.setValue(isInclude(input));
         }
       
         if (passwordOptions.values().stream().noneMatch(Boolean::booleanValue)) {
-            System.out.println("You have selected no characters to generate your password. At least one of your answers should be Yes\n");
+            System.out.println("You have selected no characters to generate your password. At least one of your answers should be y\n");
             return;
         }
 
@@ -118,11 +118,11 @@ public class Generator {
     }
 
     private boolean isInclude(String input) {
-        return input.equalsIgnoreCase("yes");
+        return input.equalsIgnoreCase("y");
     }
 
     private void passwordRequestError(String input) {
-        if (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no")) {
+        if (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("n")) {
             System.out.println("You have entered something incorrect let's go over it again \n");
         }
     }
