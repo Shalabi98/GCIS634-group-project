@@ -10,8 +10,8 @@ public class Generator {
         keyboard = scanner;
     }
 
-    public Generator(boolean IncludeUpper, boolean IncludeLower, boolean IncludeNum, boolean IncludeSym) {
-        alphabet = new Alphabet(IncludeUpper, IncludeLower, IncludeNum, IncludeSym);
+    public Generator(boolean includeUpper, boolean includeLower, boolean includeNumber, boolean includeSymbol) {
+        alphabet = new Alphabet(includeUpper, includeLower, includeNumber, includeSymbol);
     }
 
     public void mainLoop() {
@@ -47,8 +47,8 @@ public class Generator {
         }
     }
 
-    private Password GeneratePassword(int length) {
-        final StringBuilder pass = new StringBuilder("");
+    private Password generatePassword(int length) {
+        final StringBuilder password = new StringBuilder("");
 
         final int alphabetLength = alphabet.getAlphabet().length();
 
@@ -58,10 +58,10 @@ public class Generator {
 
         for (int i = 0; i < length; i++) {
             int index = (int) (Math.random() * range) + min;
-            pass.append(alphabet.getAlphabet().charAt(index));
+            password.append(alphabet.getAlphabet().charAt(index));
         }
 
-        return new Password(pass.toString());
+        return new Password(password.toString());
     }
 
     private void printUsefulInfo() {
@@ -93,11 +93,11 @@ public class Generator {
             do {
                 System.out.println("Do you want " + entry.getKey() + " to be used? ");
                 input = keyboard.next();
-                PasswordRequestError(input);
+                passwordRequestError(input);
             } while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"));
             entry.setValue(isInclude(input));
         }
-
+      
         if (passwordOptions.values().stream().noneMatch(Boolean::booleanValue)) {
             System.out.println("You have selected no characters to generate your password. At least one of your answers should be Yes\n");
             return;
@@ -121,8 +121,8 @@ public class Generator {
         return input.equalsIgnoreCase("yes");
     }
 
-    private void PasswordRequestError(String i) {
-        if (!i.equalsIgnoreCase("yes") && !i.equalsIgnoreCase("no")) {
+    private void passwordRequestError(String input) {
+        if (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no")) {
             System.out.println("You have entered something incorrect let's go over it again \n");
         }
     }
