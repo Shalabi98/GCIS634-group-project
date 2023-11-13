@@ -5,23 +5,22 @@ import java.util.Random;
 
 public class Generator {
     private Alphabet alphabet;
-    private Scanner keyboard;
+    private final Scanner keyboard;
     private static final String QUIT_OPTION = "4";
-
     private final Map<String, Runnable> actions;
 
     public Generator(Scanner scanner) {
         this.keyboard = scanner;
-        this.actions = initializeActions();
+        this.actions = initAction();
     }
 
     public Generator(boolean includeUpper, boolean includeLower, boolean includeNumber, boolean includeSymbol) {
         alphabet = new Alphabet(includeUpper, includeLower, includeNumber, includeSymbol);
         this.keyboard = new Scanner(System.in);
-        this.actions = initializeActions();
+        this.actions = initAction();
     }
 
-    private Map<String, Runnable> initializeActions() {
+    private Map<String, Runnable> initAction() {
         Map<String, Runnable> actions = new LinkedHashMap<>();
         actions.put("1", this::requestPassword);
         actions.put("2", this::checkPassword);
@@ -141,16 +140,19 @@ public class Generator {
 
     private void printUsefulInfo() {
         System.out.println(
-                "\nUse a minimum password length of 8 or more characters if permitted\n" +
-                        "Include lowercase and uppercase alphabetic characters, numbers and symbols if permitted\n" +
-                        "Generate passwords randomly where feasible\n" +
-                        "Avoid using the same password twice (e.g., across multiple user accounts and/or software systems)\n" +
-                        "Avoid character repetition, keyboard patterns, dictionary words, letter or number sequences,\n" +
-                        "usernames, relative or pet names, romantic links (current or past) " +
-                        "and biographical information (e.g., ID numbers, ancestors' names or dates).\n" +
-                        "Avoid using information that the user's colleagues and/or " +
-                        "acquaintances might know to be associated with the user\n" +
-                        "Do not use passwords which consist wholly of any simple combination of the aforementioned weak components"
+                """
+                	
+                	Use a minimum password length of 8 or more characters if permitted
+                	Include lowercase and uppercase alphabetic characters, numbers and symbols if permitted
+                	Generate passwords randomly where feasible
+                	Avoid using the same password twice (e.g., across multiple user accounts and/or software systems)
+                	Avoid character repetition, keyboard patterns, dictionary words, letter or number sequences,
+                	usernames, relative or pet names, romantic links (current or past)\s\
+                	and biographical information (e.g., ID numbers, ancestors' names or dates).
+                	Avoid using information that the user's colleagues and/or\s\
+                	acquaintances might know to be associated with the user
+                	Do not use passwords which consist wholly of any simple combination of the aforementioned weak components
+                    """
         );
     }
 
