@@ -20,6 +20,7 @@ public class PasswordTest {
         password = new Password("");
     }
 
+    // testing charType()
     @Test
     //uppercase
     public void charType1() {
@@ -45,12 +46,75 @@ public class PasswordTest {
         Assert.assertEquals(4,val);
     }
 
-
+    //testing passwordStrength()
     @Test
-    public void passwordStrength() {
-        
+    public void passwordStrengthScore6() {
+        password = new Password("Aa1&Aa1&Aa1&Aa1&");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 6;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
+    }
+    @Test
+    public void passwordStrengthScore5() {
+        password = new Password("Aa1&Aa1&Aa1&Aa");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 5;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
+    }
+    @Test
+    public void passwordStrengthScore4() {
+        password = new Password("Aa1&");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 4;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
+    }
+    @Test
+    public void passwordStrengthScore3() {
+        password = new Password("Aa1");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 3;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
+    }
+    @Test
+    public void passwordStrengthScore2() {
+        password = new Password("Aa");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 2;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
+    }
+    @Test
+    public void passwordStrengthScore1() {
+        password = new Password("A");
+        int score = password.passwordStrength();
+
+        //expected output
+        int expectedScore = 1;
+
+        //Asesertion
+        Assert.assertEquals(expectedScore, score);
     }
 
+    //testing calculateScore()
     @Test
     public void calculateScoreVeryStrong() {
         password = new Password("Aa1&Aa1&Aa1&Aa1&");
