@@ -48,7 +48,7 @@ public class PasswordTest {
 
     @Test
     public void passwordStrength() {
-
+        
     }
 
     @Test
@@ -76,11 +76,11 @@ public class PasswordTest {
     }
     @Test
     public void calculateScoreMedium() {
-        password = new Password("Aa1&Aa1&Aa1&Aa1&");
+        password = new Password("Aa1");
         String scoreResultMsg = password.calculateScore();
 
         //expected output
-        String msg = "";
+        String msg = "This is a medium password :/ try making it better";
 
         //Asesertion
         Assert.assertEquals(msg, scoreResultMsg);
@@ -91,7 +91,7 @@ public class PasswordTest {
         String scoreResultMsg = password.calculateScore();
 
         //expected output
-        String msg = "";
+        String msg = "This is a weak password :( definitely find a new one";
 
         //Asesertion
         Assert.assertEquals(msg, scoreResultMsg);
