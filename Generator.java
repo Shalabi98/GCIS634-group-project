@@ -68,7 +68,7 @@ public class Generator {
         return passwordOptions;
     }
 
-    private void requestPassword() {
+    void requestPassword() {
         try {
             LinkedHashMap<String, Boolean> passwordOptions = initPasswordOptions();
 
@@ -120,7 +120,7 @@ public class Generator {
         }
     }
 
-    private Password generatePassword(int length) {
+    Password generatePassword(int length) {
         StringBuilder password = new StringBuilder(length);
         Random random = new Random();
 
@@ -156,7 +156,7 @@ public class Generator {
         );
     }
 
-    private void checkPassword() {
+    void checkPassword() {
         String input;
 
         System.out.print("\nEnter your password:");
