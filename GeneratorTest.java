@@ -1,37 +1,50 @@
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.Scanner;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GeneratorTest {
-
-	private final Password password= new Password("Secret");
-	private final Alphabet firstAlphabet = new Alphabet(true,false,false,false);
-	private final Alphabet secondAlphabet = new Alphabet(false,true,true,true);
-	private final Generator generator = new Generator(true,false,false,false);
-//	private final Password generatedPassword = generator.GeneratePassword(4);
-	
-	@Test
-	void test1() {
-		assertEquals("Secret", password.toString());
+	GeneratorTest() {
 	}
 
 	@Test
-	void test2() {
-		assertEquals(firstAlphabet.getAlphabet(), PasswordOptions.UPPERCASE_LETTERS);
+	void testRequestPasswordWithValidInput() {
+		String input = "y\ny\ny\ny\n8\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Generator generator = new Generator(new Scanner(System.in));
+		Objects.requireNonNull(generator);
+		Assertions.assertDoesNotThrow(generator::requestPassword);
 	}
 
 	@Test
-	void test3() {
-		assertEquals(secondAlphabet.getAlphabet(), PasswordOptions.LOWERCASE_LETTERS + PasswordOptions.NUMBERS + PasswordOptions.SYMBOLS);
-	}
-	
-	@Test
-	void test4() {
-		//assertEquals(generator.alphabet.getAlphabet(), PasswordOptions.UPPERCASE_LETTERS);
-	}
-	
-	@Test
-	void test5() {
-		//assertEquals(generator.alphabet.getAlphabet().length(), 26);
+	void testRequestPasswordWithInvalidLengthInput() {
+		String input = "y\ny\ny\ny\n-2\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Generator generator = new Generator(new Scanner(System.in));
+		Objects.requireNonNull(generator);
+		Assertions.assertThrows(IllegalArgumentException.class, generator::requestPassword);
 	}
 
+	@Test
+	void testGeneratePassword() {
+		Generator generator = new Generator(true, true, true, true);
+		Password password = generator.generatePassword(12);
+		Assertions.assertEquals(12, password.toString().length());
+		Assertions.assertTrue(password.toString().matches("[A-Za-z0-9!@#$%^&*()_+\\-=[]{};':\",./<>?]*"));
+	}
+
+	@Test
+	void testCheckPasswordStrength() {
+		Generator generator = new Generator(new Scanner(System.in));
+		String input = "TestPassword123!\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		Objects.requireNonNull(generator);
+		Assertions.assertDoesNotThrow(generator::checkPassword);
+	}
 }
