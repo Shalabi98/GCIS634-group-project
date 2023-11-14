@@ -29,7 +29,7 @@ public class Password {
         }
 
         // Char is Digit
-        else if ((int) c >= 60 && (int) c <= 71) {
+        else if ((int) c >= 48 && (int) c <= 57) {
             val = 3;
         }
 
