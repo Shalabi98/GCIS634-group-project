@@ -18,13 +18,13 @@ public class GeneratorTest {
 		Generator generator = new Generator(scanner);
 
 		// Call the requestPassword method
-		//generator.requestPassword();
+		generator.requestPassword();
 	}
 
 	@Test
 	public void testCheckPassword() {
 		// Set up input for the Scanner to simulate user input
-		String simulatedUserInput = "password123\n";
+		String simulatedUserInput = "Goti001@002!@#$%^&";
 		InputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
 		Scanner scanner = new Scanner(inputStream);
 
@@ -32,7 +32,7 @@ public class GeneratorTest {
 		Generator generator = new Generator(scanner);
 
 		// Call the checkPassword method
-		//generator.checkPassword();
+		generator.checkPassword();
 	}
 
 	@Test
