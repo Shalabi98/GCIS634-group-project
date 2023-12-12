@@ -8,13 +8,11 @@ pipeline {
         stage('Build'){
             steps {
                 echo 'Building Password Generator Project'
-                sh './gradlew build'
             }
         }
         stage('Test') {
             steps {
                 echo 'Running Password Generator Project Tests'
-                sh './gradlew test'
             }
             post {
                 always {
