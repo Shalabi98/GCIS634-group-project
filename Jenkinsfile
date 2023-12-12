@@ -3,7 +3,7 @@ pipeline {
     tools {
         jdk '19'
         gradle 'Gradle 8.4'
-        maven 'Maven'
+        maven '3.8.5'
     }
     stages {
         stage('Build') {
