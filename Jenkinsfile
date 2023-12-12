@@ -3,9 +3,10 @@ pipeline {
     tools {
         jdk '19'
         gradle 'Gradle 8.4'
+        maven 'Maven'
     }
     stages {
-        stage('Build'){
+        stage('Build') {
             steps {
                 echo 'Building Password Generator Project'
                 script {
@@ -16,7 +17,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Password Generator Project Tests'
-                sh "mvn test"
+                script {
+                    sh "mvn test"
+                }
             }
             post {
                 always {
@@ -27,7 +30,7 @@ pipeline {
                 }
                 failure {
                     echo 'Build failed!'
-                 }
+                }
             }
         }
     }
